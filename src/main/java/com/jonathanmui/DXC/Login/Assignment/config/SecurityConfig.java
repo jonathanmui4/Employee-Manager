@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req->req.requestMatchers("/login/**", "/register/**")
                                 .permitAll()
+                                .requestMatchers("/home/admin").hasAnyAuthority("MANAGER")
                                 .anyRequest()
                                 .authenticated()
                 )
