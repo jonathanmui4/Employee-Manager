@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,7 +58,24 @@ public class AuthenticationService {
         );
         User user = repository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.generateToken(user);
+
+        // Ensure only the latest generated token can be used for authentication, log out the rest
+        revokeAllTokensByUser(user);
+
+        // Save the generated token
+        saveUserToken(token, user);
+
         return new AuthenticationResponse(token);
+    }
+
+    private void revokeAllTokensByUser(User user) {
+        List<Token> validTokenListByUser = tokenRepository.findAllTokenByUser(user.getId());
+        if(!validTokenListByUser.isEmpty()) {
+            validTokenListByUser.forEach(token1 -> {
+                token1.setLoggedOut(true);
+            });
+        }
+        tokenRepository.saveAll(validTokenListByUser);
     }
 
     private void saveUserToken(String token, User user) {

@@ -1,6 +1,7 @@
 package com.jonathanmui.DXC.Login.Assignment.service;
 
 import com.jonathanmui.DXC.Login.Assignment.model.User;
+import com.jonathanmui.DXC.Login.Assignment.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -18,6 +19,11 @@ public class JwtService {
      * Generates and validates token, we need secret key
      */
     private final String SECRET_KEY = "1287d2d0178bbf618150c1d192932e13f6d40b810c428de32572fa1194295d99";
+    private final TokenRepository tokenRepository;
+
+    public JwtService(TokenRepository tokenRepository) {
+        this.tokenRepository = tokenRepository;
+    }
 
     /*
      * Extract payload or claims from token
@@ -49,7 +55,12 @@ public class JwtService {
 
     public boolean isValid(String token, UserDetails user) {
         String username = extractUsername(token);
-        return (username.equals(user.getUsername())) && !isTokenExpired(token);
+
+        // Checks if token is logged out
+        boolean isLoggedInToken = tokenRepository.findByToken(token)
+                .map(t->!t.isLoggedOut()).orElse(false);
+
+        return (username.equals(user.getUsername())) && !isTokenExpired(token) && isLoggedInToken;
     }
 
     private boolean isTokenExpired(String token) {
