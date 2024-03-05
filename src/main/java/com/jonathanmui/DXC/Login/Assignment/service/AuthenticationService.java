@@ -1,7 +1,9 @@
 package com.jonathanmui.DXC.Login.Assignment.service;
 
 import com.jonathanmui.DXC.Login.Assignment.model.AuthenticationResponse;
+import com.jonathanmui.DXC.Login.Assignment.model.Token;
 import com.jonathanmui.DXC.Login.Assignment.model.User;
+import com.jonathanmui.DXC.Login.Assignment.repository.TokenRepository;
 import com.jonathanmui.DXC.Login.Assignment.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,12 +18,14 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final TokenRepository tokenRepository;
 
-    public AuthenticationService(UserRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+    public AuthenticationService(UserRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, TokenRepository tokenRepository) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.tokenRepository = tokenRepository;
     }
 
 
@@ -33,9 +37,13 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(request.getRole());
 
-        user=repository.save(user);
+        user = repository.save(user);
 
         String token = jwtService.generateToken(user);
+
+        // Save the generated token
+        saveUserToken(token, user);
+
 
         return new AuthenticationResponse(token);
     }
@@ -50,5 +58,13 @@ public class AuthenticationService {
         User user = repository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.generateToken(user);
         return new AuthenticationResponse(token);
+    }
+
+    private void saveUserToken(String token, User user) {
+        Token genToken = new Token();
+        genToken.setToken(token);
+        genToken.setLoggedOut(false);
+        genToken.setUser(user);
+        tokenRepository.save(genToken);
     }
 }
