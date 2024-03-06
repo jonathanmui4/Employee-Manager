@@ -1,6 +1,7 @@
 package com.jonathanmui.DXC.Login.Assignment.service;
 
 import com.jonathanmui.DXC.Login.Assignment.model.AuthenticationResponse;
+import com.jonathanmui.DXC.Login.Assignment.model.Role;
 import com.jonathanmui.DXC.Login.Assignment.model.Token;
 import com.jonathanmui.DXC.Login.Assignment.model.User;
 import com.jonathanmui.DXC.Login.Assignment.repository.TokenRepository;
@@ -36,7 +37,9 @@ public class AuthenticationService {
         user.setLastName(request.getLastName());
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole());
+        // Set everyone to employee
+        user.setRole(Role.EMPLOYEE);
+//        user.setRole(request.getRole());
 
         user = repository.save(user);
 

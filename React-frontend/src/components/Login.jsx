@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -30,20 +30,22 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
 
-  const reqBody = {
-    "username": "token2",
-    "password": "test"
-  }
-
-  fetch('http://localhost:8080/api/auth/login', {
-    "headers": {
-      "Content-Type": "application/json",
-    },
-    method: 'POST',
-    body: JSON.stringify(reqBody)
+  useEffect(() => { 
+    const reqBody = {
+      "username": "token2",
+      "password": "test"
     }
-  ).then(response => response.json())
-  .then(data => console.log(data));
+  
+    fetch('http://localhost:8080/api/auth/login', {
+      "headers": {
+        "Content-Type": "application/json",
+      },
+      method: 'POST',
+      body: JSON.stringify(reqBody)
+      }
+    ).then(response => response.json())
+    .then(data => console.log(data));
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
