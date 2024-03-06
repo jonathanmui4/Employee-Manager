@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useLocalState from '../util/useLocalStorage';
 
 function Copyright(props) {
   return (
@@ -30,22 +31,30 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
 
+  const [jwt, setJwt] = useLocalState("", 'jwt');
+
   useEffect(() => { 
-    const reqBody = {
-      "username": "token2",
-      "password": "test"
-    }
-  
-    fetch('http://localhost:8080/api/auth/login', {
-      "headers": {
-        "Content-Type": "application/json",
-      },
-      method: 'POST',
-      body: JSON.stringify(reqBody)
+    if (!jwt) {
+      const reqBody = {
+        "username": "token2",
+        "password": "test"
       }
-    ).then(response => response.json())
-    .then(data => console.log(data));
+    
+      fetch('http://localhost:8080/api/auth/login', {
+        "headers": {
+          "Content-Type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify(reqBody)
+        }
+      ).then(response => response.json())
+      .then(data => setJwt(data.token));
+    } 
   }, []);
+
+  useEffect(() => {
+    console.log(jwt);
+  }, [jwt]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
