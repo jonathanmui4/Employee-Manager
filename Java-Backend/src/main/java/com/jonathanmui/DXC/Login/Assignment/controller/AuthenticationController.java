@@ -4,11 +4,9 @@ import com.jonathanmui.DXC.Login.Assignment.model.AuthenticationResponse;
 import com.jonathanmui.DXC.Login.Assignment.model.User;
 import com.jonathanmui.DXC.Login.Assignment.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {

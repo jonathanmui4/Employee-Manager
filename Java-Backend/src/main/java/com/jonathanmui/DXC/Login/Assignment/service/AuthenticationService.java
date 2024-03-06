@@ -65,7 +65,13 @@ public class AuthenticationService {
         // Save the generated token
         saveUserToken(token, user);
 
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(
+                token,
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getRole()
+        );
     }
 
     private void revokeAllTokensByUser(User user) {

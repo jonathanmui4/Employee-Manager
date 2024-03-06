@@ -29,6 +29,22 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
+  const reqBody = {
+    "username": "token2",
+    "password": "test"
+  }
+
+  fetch('http://localhost:8080/api/auth/login', {
+    "headers": {
+      "Content-Type": "application/json",
+    },
+    method: 'POST',
+    body: JSON.stringify(reqBody)
+    }
+  ).then(response => response.json())
+  .then(data => console.log(data));
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
