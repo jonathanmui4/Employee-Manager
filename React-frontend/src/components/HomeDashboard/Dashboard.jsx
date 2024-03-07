@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -20,6 +21,12 @@ const theme = createTheme({
 });
 
 function Dashboard() {
+    const location = useLocation();
+    const { state } = location;
+    const userFirstName = state ? state.userFirstName : '';
+    const userLastName = state ? state.userLastName : '';
+    const userRole = state ? state.userRole : '';
+
     return (
         <>
             <Navbar />
@@ -32,7 +39,7 @@ function Dashboard() {
                             gutterBottom
                             sx={{ mb: 2 }}
                         >
-                            Welcome to our application!
+                            Welcome {userRole} {userFirstName} {userLastName}!
                         </Typography>
                         <Typography variant="body1" align="center" gutterBottom>
                             This is a simple welcome page built with Material
