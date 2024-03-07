@@ -19,30 +19,30 @@ const defaultTheme = createTheme();
 
 export default function Login() {
 
-  const [jwt, setJwt] = useLocalState("", 'jwt');
+  // const [jwt, setJwt] = useLocalState("", 'jwt');
 
-  useEffect(() => { 
-    if (!jwt) {
-      const reqBody = {
-        "username": "token2",
-        "password": "test"
-      }
+  // useEffect(() => { 
+  //   if (!jwt) {
+  //     const reqBody = {
+  //       "username": "token2",
+  //       "password": "test"
+  //     }
     
-      fetch('http://localhost:8080/api/auth/login', {
-        "headers": {
-          "Content-Type": "application/json",
-        },
-        method: 'POST',
-        body: JSON.stringify(reqBody)
-        }
-      ).then(response => response.json())
-      .then(data => setJwt(data.token));
-    } 
-  }, []);
+  //     fetch('http://localhost:8080/api/auth/login', {
+  //       "headers": {
+  //         "Content-Type": "application/json",
+  //       },
+  //       method: 'POST',
+  //       body: JSON.stringify(reqBody)
+  //       }
+  //     ).then(response => response.json())
+  //     .then(data => console.log(data.token));
+  //   } 
+  // }, []);
 
-  useEffect(() => {
-    console.log(jwt);
-  }, [jwt]);
+  // useEffect(() => {
+  //   console.log(jwt);
+  // }, [jwt]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
