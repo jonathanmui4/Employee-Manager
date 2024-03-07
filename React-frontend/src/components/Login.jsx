@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useLocalState from "../util/useLocalStorage";
+import { setJWTCookie } from "../util/jwtCookieUtil";
 import Copyright from "./Copyright";
 
 const defaultTheme = createTheme();
@@ -45,6 +46,8 @@ export default function Login() {
             .then((data) => {
                 const { userFirstName, userLastName, userRole, token } = data;
                 console.log(userFirstName, userLastName, userRole, token);
+                // **Securely set JWT cookie:**
+                setJWTCookie(token);
                 navigate("/dashboard", { state: { userFirstName, userLastName, userRole, token } });
             })
             .catch((error) => alert(error));

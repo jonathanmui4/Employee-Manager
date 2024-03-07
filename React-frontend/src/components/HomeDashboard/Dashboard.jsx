@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { setJWTCookie } from "../../util/jwtCookieUtil";
 import Navbar from "./Navbar";
 
 const theme = createTheme({
@@ -26,6 +27,13 @@ function Dashboard() {
     const userFirstName = state ? state.userFirstName : '';
     const userLastName = state ? state.userLastName : '';
     const userRole = state ? state.userRole : '';
+    const token = state ? state.token : '';
+
+    // useEffect(() => {
+    //     console.log("Token in dashboard: ", token);
+    //     // **Securely set JWT cookie:**
+    //     setJWTCookie(token);
+    // }, [token]);
 
     return (
         <>
