@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { setJWTCookie } from "../../util/jwtCookieUtil";
+import { getJWTCookie, setJWTCookie } from "../../util/jwtCookieUtil";
 import Navbar from "./Navbar";
 
 const theme = createTheme({
@@ -27,7 +27,7 @@ function Dashboard() {
     const userFirstName = state ? state.userFirstName : "";
     const userLastName = state ? state.userLastName : "";
     const userRole = state ? state.userRole : "";
-    const token = state ? state.token : "";
+    // const token = state ? state.token : "";
 
     // useEffect(() => {
     //     console.log("Token in dashboard: ", token);
