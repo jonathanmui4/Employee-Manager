@@ -18,7 +18,7 @@ const theme = createTheme({
     },
 });
 
-function Dashboard({ firstName, lastName, role}) {
+function Dashboard({ firstName, lastName, role, username}) {
     const navigate = useNavigate();
 
     return (
@@ -37,8 +37,7 @@ function Dashboard({ firstName, lastName, role}) {
                             Welcome {role} {firstName} {lastName}!
                         </Typography>
                         <Typography variant="body1" align="center" gutterBottom>
-                            This is a simple welcome page built with Material
-                            UI.
+                            Your username is {username}
                         </Typography>
                         <Box
                             sx={{

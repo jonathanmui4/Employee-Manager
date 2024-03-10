@@ -13,6 +13,7 @@ function App() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [role, setRole] = useState("");
+    const [userName, setUserName] = useState("");
 
     return (
         <Routes>
@@ -21,8 +22,8 @@ function App() {
             <Route
                 path="/dashboard"
                 element={
-                    <PrivateRoute setFirstName={setFirstName} setLastName={setLastName} setRole={setRole}>
-                        <Dashboard firstName={firstName} lastName={lastName} role={role}/>
+                    <PrivateRoute setFirstName={setFirstName} setLastName={setLastName} setRole={setRole} setUserName={setUserName}>
+                        <Dashboard firstName={firstName} lastName={lastName} role={role} username={userName} />
                     </PrivateRoute>
                 }
             />
