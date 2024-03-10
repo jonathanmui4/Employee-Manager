@@ -2,8 +2,7 @@ import React from 'react'
 // import { useHistory } from 'react-router-dom';
 import { AppBar, Button, Container, Toolbar, Typography } from '@mui/material'
 
-const UnauthorizedPage = () => {
-    // const history = useHistory();
+const UnauthorizedPage = ({ code }) => {
     const goBack = () => {
         history.back();
     }
@@ -12,13 +11,13 @@ const UnauthorizedPage = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Unauthorized Access
+            Error {code}
           </Typography>
         </Toolbar>
       </AppBar>
       <Container maxWidth="sm" style={{ marginTop: '20px' }}>
         <Typography variant="h4" align="center" gutterBottom>
-          Unauthorized Access
+          {code === 403 ? "Unauthorized Access" : "Please Login First"}
         </Typography>
         <Typography variant="body1" align="center" paragraph>
           You are not authorized to view this page.

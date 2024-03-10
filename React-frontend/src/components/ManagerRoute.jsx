@@ -6,6 +6,7 @@ import UnauthorizedPage from "./UnauthorizedPage";
 const ManagerRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [code, setCode] = useState(0);
     useEffect(() => {
         const fetchAuthStatus = async () => {
           try {
@@ -18,6 +19,12 @@ const ManagerRoute = ({ children }) => {
             if (response.status === 200) {
               setIsAuthenticated(true);
             } else {
+              if (response.status === 403) {
+                setCode(403);
+              }
+              if (response.status === 401) {
+                setCode(401);
+              }
               setIsAuthenticated(false);
             }
           } catch (error) {
@@ -33,7 +40,7 @@ const ManagerRoute = ({ children }) => {
       if (isLoading) {
         return <div>Loading...</div>; // Or display a loading indicator
       }
-    return isAuthenticated ? children : <UnauthorizedPage />;
+    return isAuthenticated ? children : <UnauthorizedPage code={code} />;
 };
 
 export default ManagerRoute;
