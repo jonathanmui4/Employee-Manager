@@ -6,6 +6,7 @@ import SignUp from "./components/Signup";
 import Dashboard from "./components/HomeDashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import ManagerDash from "./components/ManagerDashboard/ManagerDash";
+import ManagerRoute from "./components/ManagerRoute";
 
 function App() {
     // const [count, setCount] = useState(0)
@@ -22,7 +23,14 @@ function App() {
                     </PrivateRoute>
                 }
             />
-            <Route path="/dashboard/manager" element={<ManagerDash/>} />
+            <Route
+                path="/dashboard/manager"
+                element={
+                    <ManagerRoute>
+                        <ManagerDash />
+                    </ManagerRoute>
+                }
+            />
         </Routes>
     );
 }
