@@ -24,10 +24,10 @@ const theme = createTheme({
 function Dashboard() {
     const location = useLocation();
     const { state } = location;
-    const userFirstName = state ? state.userFirstName : '';
-    const userLastName = state ? state.userLastName : '';
-    const userRole = state ? state.userRole : '';
-    const token = state ? state.token : '';
+    const userFirstName = state ? state.userFirstName : "";
+    const userLastName = state ? state.userLastName : "";
+    const userRole = state ? state.userRole : "";
+    const token = state ? state.token : "";
 
     // useEffect(() => {
     //     console.log("Token in dashboard: ", token);
@@ -60,13 +60,15 @@ function Dashboard() {
                                 mt: 4,
                             }}
                         >
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                sx={{ mx: 2 }}
-                            >
-                                Managers only
-                            </Button>
+                            {userRole === "MANAGER" ? (
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    sx={{ mx: 2 }}
+                                >
+                                    Managers only
+                                </Button>
+                            ) : null}
                         </Box>
                     </Box>
                 </Container>
