@@ -10,6 +10,9 @@ import { getJWTCookie, clearJWTCookie } from '../util/jwtCookieUtil';
 
 export default function ButtonAppBar({ role }) {
   const handleLogout = () => {
+    if (!getJWTCookie()) {
+      return;
+    }
 
     fetch("http://localhost:8080/logout", {
             headers: {

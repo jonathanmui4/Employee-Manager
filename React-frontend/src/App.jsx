@@ -7,9 +7,9 @@ import Dashboard from "./components/HomeDashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import ManagerDash from "./components/ManagerDashboard/ManagerDash";
 import ManagerRoute from "./components/ManagerRoute";
+import RedirectComponent from "./components/RedirectComponent";
 
 function App() {
-    // const [count, setCount] = useState(0)
 
     return (
         <Routes>
@@ -31,6 +31,7 @@ function App() {
                     </ManagerRoute>
                 }
             />
+            <Route path="/" element={<RedirectComponent />} />
         </Routes>
     );
 }
