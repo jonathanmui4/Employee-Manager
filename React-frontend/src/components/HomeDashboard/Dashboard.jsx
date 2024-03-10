@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getJWTCookie, setJWTCookie } from "../../util/jwtCookieUtil";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 
 const theme = createTheme({
     palette: {
@@ -37,7 +37,7 @@ function Dashboard() {
 
     return (
         <>
-            <Navbar />
+            <Navbar role={"EMPLOYEE"} />
             <ThemeProvider theme={theme}>
                 <Container maxWidth="lg">
                     <Box sx={{ my: 4 }}>
