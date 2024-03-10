@@ -38,8 +38,8 @@ public class AuthenticationService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         // Set everyone to employee
-        user.setRole(Role.EMPLOYEE);
-//        user.setRole(request.getRole());
+//        user.setRole(Role.EMPLOYEE);
+        user.setRole(request.getRole());
 
         user = repository.save(user);
 
