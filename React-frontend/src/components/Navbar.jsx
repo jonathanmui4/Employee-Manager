@@ -6,8 +6,24 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { getJWTCookie, clearJWTCookie } from '../util/jwtCookieUtil';
 
 export default function ButtonAppBar({ role }) {
+  const handleLogout = () => {
+
+    fetch("http://localhost:8080/logout", {
+            headers: {
+              Authorization: `Bearer ${getJWTCookie()}`,
+            },
+            method: "GET",
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    clearJWTCookie();
+                    window.location.href = "/login";
+                }
+            })
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -24,7 +40,7 @@ export default function ButtonAppBar({ role }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {role === "MANAGER" ? "Manager Dashboard" : "Employee Dashboard"}
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={handleLogout}>Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>
