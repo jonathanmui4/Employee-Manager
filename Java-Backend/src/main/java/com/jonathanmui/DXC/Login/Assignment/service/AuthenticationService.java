@@ -52,6 +52,10 @@ public class AuthenticationService {
         return new AuthenticationResponse(token);
     }
 
+    public AuthenticationResponse retrieve(User request) {
+        return new AuthenticationResponse(request.getFirstName(), request.getLastName(), request.getUsername(), request.getRole());
+    }
+
     public AuthenticationResponse authenticate(User request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

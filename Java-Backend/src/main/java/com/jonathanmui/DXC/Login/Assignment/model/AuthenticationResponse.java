@@ -19,6 +19,13 @@ public class AuthenticationResponse {
         this.token = token;
     }
 
+    public AuthenticationResponse(String userFirstName, String userLastName, String username, Role userRole) {
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
+        this.username = username;
+        this.userRole = userRole;
+    }
+
     public String getToken() {
         return token;
     }

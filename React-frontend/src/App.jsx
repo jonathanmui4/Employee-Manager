@@ -10,6 +10,9 @@ import ManagerRoute from "./components/ManagerRoute";
 import RedirectComponent from "./components/RedirectComponent";
 
 function App() {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [role, setRole] = useState("");
 
     return (
         <Routes>
@@ -18,8 +21,8 @@ function App() {
             <Route
                 path="/dashboard"
                 element={
-                    <PrivateRoute>
-                        <Dashboard />
+                    <PrivateRoute setFirstName={setFirstName} setLastName={setLastName} setRole={setRole}>
+                        <Dashboard firstName={firstName} lastName={lastName} role={role}/>
                     </PrivateRoute>
                 }
             />

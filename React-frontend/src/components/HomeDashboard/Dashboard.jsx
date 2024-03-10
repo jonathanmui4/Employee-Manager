@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getJWTCookie, setJWTCookie } from "../../util/jwtCookieUtil";
 import Navbar from "../Navbar";
 
 const theme = createTheme({
@@ -21,19 +18,8 @@ const theme = createTheme({
     },
 });
 
-function Dashboard() {
-    const location = useLocation();
-    const { state } = location;
-    const userFirstName = state ? state.userFirstName : "";
-    const userLastName = state ? state.userLastName : "";
-    const userRole = state ? state.userRole : "";
-    // const token = state ? state.token : "";
-
-    // useEffect(() => {
-    //     console.log("Token in dashboard: ", token);
-    //     // **Securely set JWT cookie:**
-    //     setJWTCookie(token);
-    // }, [token]);
+function Dashboard({ firstName, lastName, role}) {
+    const navigate = useNavigate();
 
     return (
         <>
@@ -47,7 +33,8 @@ function Dashboard() {
                             gutterBottom
                             sx={{ mb: 2 }}
                         >
-                            Welcome {userRole} {userFirstName} {userLastName}!
+                            {/* Welcome {userRole} {userFirstName} {userLastName}! */}
+                            Welcome {role} {firstName} {lastName}!
                         </Typography>
                         <Typography variant="body1" align="center" gutterBottom>
                             This is a simple welcome page built with Material
@@ -60,11 +47,12 @@ function Dashboard() {
                                 mt: 4,
                             }}
                         >
-                            {userRole === "MANAGER" ? (
+                            {role === "MANAGER" ? (
                                 <Button
                                     variant="contained"
                                     color="secondary"
                                     sx={{ mx: 2 }}
+                                    onClick={() => navigate("/dashboard/manager")}
                                 >
                                     Managers only
                                 </Button>

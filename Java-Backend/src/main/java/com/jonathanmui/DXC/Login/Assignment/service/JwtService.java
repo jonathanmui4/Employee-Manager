@@ -2,6 +2,7 @@ package com.jonathanmui.DXC.Login.Assignment.service;
 
 import com.jonathanmui.DXC.Login.Assignment.model.User;
 import com.jonathanmui.DXC.Login.Assignment.repository.TokenRepository;
+import com.jonathanmui.DXC.Login.Assignment.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -20,9 +21,11 @@ public class JwtService {
      */
     private final String SECRET_KEY = "1287d2d0178bbf618150c1d192932e13f6d40b810c428de32572fa1194295d99";
     private final TokenRepository tokenRepository;
+    private final UserRepository userRepository;
 
-    public JwtService(TokenRepository tokenRepository) {
+    public JwtService(TokenRepository tokenRepository, UserRepository userRepository) {
         this.tokenRepository = tokenRepository;
+        this.userRepository = userRepository;
     }
 
     /*
@@ -51,6 +54,14 @@ public class JwtService {
      */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public User extractUserFromToken(String token) {
+        String username = extractUsername(token);
+//        System.out.println(username);
+        // Assuming you have a method in your UserRepository to find user by username
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found for the token"));
     }
 
     public boolean isValid(String token, UserDetails user) {

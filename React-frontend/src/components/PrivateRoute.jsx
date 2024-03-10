@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { getJWTCookie } from "../util/jwtCookieUtil";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, setFirstName, setLastName, setRole }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
   
@@ -17,6 +17,10 @@ const PrivateRoute = ({ children }) => {
           });
           if (response.status === 200) {
             setIsAuthenticated(true);
+            const data = await response.json();
+            setFirstName(data.userFirstName);
+            setLastName(data.userLastName);
+            setRole(data.userRole);
           } else {
             setIsAuthenticated(false);
           }
