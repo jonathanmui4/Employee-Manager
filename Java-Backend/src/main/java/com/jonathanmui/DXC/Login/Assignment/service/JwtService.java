@@ -7,6 +7,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,8 @@ public class JwtService {
     /*
      * Generates and validates token, we need secret key
      */
-    private final String SECRET_KEY = "1287d2d0178bbf618150c1d192932e13f6d40b810c428de32572fa1194295d99";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
     private final TokenRepository tokenRepository;
     private final UserRepository userRepository;
 
