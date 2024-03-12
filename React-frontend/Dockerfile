@@ -10,7 +10,7 @@ COPY . .
 RUN yarn build
 
 # Expose the port on which your Vite server will run (default is 4173)
-EXPOSE 4173
+EXPOSE 5173
 
 # Start the Vite development server
 CMD ["yarn", "preview"]
