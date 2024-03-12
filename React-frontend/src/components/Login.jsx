@@ -44,7 +44,6 @@ export default function Login() {
             })
             .then((data) => {
                 const { userFirstName, userLastName, userRole, token } = data;
-                console.log(userFirstName, userLastName, userRole, token);
                 // **set JWT cookie:**
                 setJWTCookie(token);
                 navigate("/dashboard", { state: { userFirstName, userLastName, userRole, token } });

@@ -29,7 +29,7 @@ export default function SignUp() {
             lastName: data.get("lastName"),
             username: data.get("username"),
             password: data.get("password"),
-            role: role === "admin" ? "MANAGER" : "USER", // Replace with actual role values
+            role: role === "admin" ? "MANAGER" : "EMPLOYEE",
         };
 
         fetch("http://localhost:8080/api/auth/register", {
@@ -48,14 +48,6 @@ export default function SignUp() {
             .then((data) => {
                 alert("User registered successfully!");
                 navigate("/login")
-                // console.log(data);
-                // const { username, lastname, userRole, token } = data;
-                // console.log(userFirstName, userLastName, userRole, token);
-                // // **Securely set JWT cookie:**
-                // setJWTCookie(token);
-                // navigate("/dashboard", {
-                //     state: { userFirstName, userLastName, userRole, token },
-                // });
             })
             .catch((error) => alert(error));
     };
