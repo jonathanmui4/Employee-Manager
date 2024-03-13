@@ -64,4 +64,4 @@ dist-ssr
 *.sln
 *.sw?
 
-Java-Backend/src/main/resources/application.properties
+# Java-Backend/src/main/resources/application.properties
